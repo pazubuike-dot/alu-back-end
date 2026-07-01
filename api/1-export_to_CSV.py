@@ -14,17 +14,14 @@ if __name__ == "__main__":
     user_id = sys.argv[1]
     url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetch user details for username
     user_res = requests.get("{}users/{}".format(url, user_id))
     username = user_res.json().get("username")
 
-    # Fetch todo list items
     todos_res = requests.get("{}todos?userId={}".format(url, user_id))
     todos_list = todos_res.json()
 
     filename = "{}.csv".format(user_id)
 
-    # Write data to CSV with quote-all configuration
     with open(filename, mode='w', newline='') as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_ALL)
         for task in todos_list:

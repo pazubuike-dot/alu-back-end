@@ -9,13 +9,11 @@ import requests
 if __name__ == "__main__":
     url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetch all users
     users_res = requests.get("{}users".format(url))
     users_list = users_res.json()
 
     all_data = {}
 
-    # Iterate through every user to fetch their respective tasks
     for user in users_list:
         user_id = str(user.get("id"))
         username = user.get("username")
@@ -33,6 +31,5 @@ if __name__ == "__main__":
 
         all_data[user_id] = tasks_list
 
-    # Output everything to the unified file
     with open("todo_all_employees.json", mode='w') as json_file:
         json.dump(all_data, json_file)
