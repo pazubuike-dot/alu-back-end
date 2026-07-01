@@ -13,10 +13,10 @@ if __name__ == "__main__":
     user_id = sys.argv[1]
     url = "https://jsonplaceholder.typicode.com/"
 
-    # Fetch user data to get the employee's name
+    # Fetch user data to get the employee's username (NOT full name)
     user_res = requests.get("{}users/{}".format(url, user_id))
     user_dict = user_res.json()
-    employee_name = user_dict.get("name")
+    employee_username = user_dict.get("username")
 
     # Fetch todo list data for this specific user
     todos_res = requests.get("{}todos?userId={}".format(url, user_id))
@@ -30,9 +30,9 @@ if __name__ == "__main__":
         if task.get("completed") is True:
             completed_tasks.append(task.get("title"))
 
-    # Display results exactly as required by the checker
+    # Display results exactly as required by the checker using username
     print("Employee {} is done with tasks({}/{}):".format(
-        employee_name, len(completed_tasks), total_tasks))
+        employee_username, len(completed_tasks), total_tasks))
 
     for title in completed_tasks:
         print("\t {}".format(title))
